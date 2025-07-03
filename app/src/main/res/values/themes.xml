@@ -1,5 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- This is your main application theme -->
+    <style name="Theme.UnofficialSatisfactoryManuel" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Add any general theme attributes here that you want for your app -->
+        <!-- For example, if you were managing status bar color or action bar styles via XML:
+        <item name="android:statusBarColor">@color/your_status_bar_color</item>
+        -->
+        <!--
+            If you are using Material 3 and Jetpack Compose, you might want to
+            parent from a Material 3 theme instead, e.g.,
+            parent="Theme.Material3.DayNight.NoActionBar"
+            And then define Material 3 color attributes if not relying solely on Compose's ColorScheme.
+            <item name="colorPrimary">@color/purple_500</item>
+            <item name="colorSecondary">@color/teal_200</item>
+            ...
+        -->
+    </style>
 
-    <style name="Theme.UnofficalSatisfactoryManuel" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- The commented-out Splash Screen Theme has been removed -->
+
 </resources>

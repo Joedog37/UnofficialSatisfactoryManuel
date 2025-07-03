@@ -1,4 +1,4 @@
-package com.example.unofficalsatisfactorymanuel
+package com.example.unofficialsatisfactorymanuel
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -20,7 +20,7 @@ fun AboutScreen(modifier: Modifier = Modifier) {
         )
         Text(
             text = "Disclaimer: This app is an unofficial fan-made companion for the game Satisfactory. It is not created, endorsed, or affiliated with Coffee Stain Studios or Satisfactory. Any in-game content or trademarks are property of their respective owners. This app is intended as a tool for fans of Satisfactory and is for informational and entertainment purposes only. Note that this app may not be up-to-date with the latest changes to the game.",
-            fontSize = 12.sp,
+            fontSize = 16.sp,
             fontStyle = FontStyle.Italic,
             modifier = Modifier.padding(top = 8.dp)
         )

@@ -1,4 +1,4 @@
-package com.example.unofficalsatisfactorymanuel
+package com.example.unofficialsatisfactorymanuel
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -15,12 +15,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         Text(
             text = welcomeMessage,
-            fontSize = 16.sp,
+            fontSize = 20.sp,
             modifier = Modifier.padding(top = 8.dp)
         )
         Text(
             text = appDescription,
-            fontSize = 12.sp,
+            fontSize = 16.sp,
             modifier = Modifier.padding(top = 8.dp)
         )
     }

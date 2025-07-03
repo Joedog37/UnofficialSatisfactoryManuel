@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Unofficial Satisfactory Manuel</string>
+    <string name="app_name">Unofficial SF Manual</string>
+    <string name="about_title">About</string>
+    <string name="about_disclaimer">Disclaimer: This app is an unofficial fan-made…</string>
 </resources>

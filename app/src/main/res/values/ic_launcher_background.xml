@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#FA0000</color>
+    <!-- ... your existing light theme colors like purple_500, white, black, etc. ... -->
+
+    <!-- ADD DARK THEME COLORS -->
+    <color name="dark_grey_background">#FF121212</color> <!-- Example dark background -->
+    <color name="dark_grey_surface">#FF1E1E1E</color>   <!-- Example slightly lighter dark surface -->
+    <color name="light_grey_text_on_dark">#FFE0E0E0</color> <!-- Example light text for dark backgrounds -->
+    <color name="white_text_on_dark">#FFFFFFFF</color>
+
+    <!-- You might also want dark theme variations for your primary/secondary if the light ones don't contrast well -->
+    <color name="purple_200_dark_variant">#FFBB86FC</color> <!-- Often lighter for dark theme accents -->
+    <color name="purple_700_dark_variant">#FF3700B3</color>
+</resources>
