@@ -4,6 +4,24 @@ Welcome to the Unofficial Satisfactory Manual! This app is designed to be a help
 
 ## Releases
 
+### 0.1.0 alpha 3 (Work in Progress)
+
+**Disclaimer:**
+
+This is currently a **work-in-progress build** and is not yet released. Features listed here are planned or under development and may change.
+
+**Planned for alpha 3 / Currently Working On:**
+
+*   **Data Expansion:**
+    *   Adding more detailed information for existing items (Buildings A-C).
+    *   Beginning to add data for new item categories or expanding existing ones.
+*   **(Placeholder for other key features you are actively developing for alpha 3 - e.g., "Implementing search functionality for items", "Adding a new 'Crafting Recipes' section", "UI enhancements for the detail screens", etc.)**
+*   **Continued Foundation Work:** Ongoing improvements to the app's architecture and stability to support future features.
+
+*(This section will be updated with "What's New," "What to Test," "Known Issues," and "Installation Instructions" once alpha 3 is ready for release.)*
+
+---
+
 ### 0.1.0 alpha 2
 
 **Disclaimer:**
@@ -38,7 +56,7 @@ This is an **alpha 2** release. It is intended for testing purposes only. You sh
 
 *   This is an alpha release, so there are likely many unknown issues.
 *   Not all planned features are implemented yet.
-    
+
 
 **Future Updates:**
 
@@ -48,7 +66,7 @@ This is an ongoing project. More features, items, and information will be added 
 
 Please report any bugs or issues you encounter. You can use the following link to create an issue: **https://github.com/Joedog37/UnofficialSatisfactoryManuel/issues**
 
-### Installation Instructions
+### Installation Instructions (for alpha 2)
 
 1.  **Download the APK:**
     *   Go to the GitHub Releases page: **https://github.com/Joedog37/UnofficialSatisfactoryManuel/releases**
@@ -65,3 +83,5 @@ Please report any bugs or issues you encounter. You can use the following link t
     *   You can now open the app and start testing!
 
 [//]: # (Rest of your README.md content goes here, e.g., Future Plans, Contributing, License - can be added later)
+
+)
