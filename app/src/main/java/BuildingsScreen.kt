@@ -5,14 +5,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+// Removed Row import as it's replaced by LazyRow for the buttons
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyRow // Added LazyRow import
+import androidx.compose.foundation.lazy.items // items is used by both LazyColumn and LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -42,22 +43,21 @@ import com.example.unofficialsatisfactorymanuel.data.getBuildingById
 import com.example.unofficialsatisfactorymanuel.ui.theme.MyCleanComposeAppTheme // Assuming your theme is named this
 
 // Define your building groups.
-// As you add more data files (e.g., for G-I, J-L), add new entries here.
 enum class BuildingGroup(val displayName: String, val letters: CharRange) {
     A_TO_C("A-C", 'A'..'C'),
-    D_TO_F("D-F", 'D'..'F'); // Example: Add G_TO_I("G-I", 'G'..'I') when ready
-    // Add more groups as your data expands
-    // For example:
-    // G_TO_I("G-I", 'G'..'I'),
-    // J_TO_L("J-L", 'J'..'L'),
-    // ... and so on
+    D_TO_F("D-F", 'D'..'F'),
+    G_TO_I("G-I", 'G'..'I'),
+    J_TO_L("J-L", 'J'..'L'),
+    M_TO_O("M-O", 'M'..'O'),
+    P_TO_R("P-R", 'P'..'R'),
+    S_TO_U("S-U", 'S'..'U'),
+    V_TO_Z("V-Z", 'V'..'Z'); // Semicolon here if you add functions to the enum later, otherwise optional for the last entry
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BuildingsScreen(
     modifier: Modifier = Modifier,
-    // buildingsDataList parameter is removed as we will always filter from AllBuildingDataSample
     onBuildingSelected: (buildingId: String) -> Unit,
     onNavigateBack: (() -> Unit)? = null,
 ) {
@@ -69,7 +69,7 @@ fun BuildingsScreen(
         AllBuildingDataSample.filter { building ->
             // Ensure building.name is not empty and handle case-insensitivity
             building.name.firstOrNull()?.uppercaseChar() in selectedGroup.letters
-        } // Removed the trailing dot here
+        }
     }
 
     Scaffold(
@@ -95,14 +95,15 @@ fun BuildingsScreen(
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-            // Group Selection Buttons
-            Row(
+            // Group Selection Buttons - Replaced Row with LazyRow
+            LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally) // Or use LazyRow
+                    .padding(vertical = 8.dp), // Vertical padding for the LazyRow itself
+                contentPadding = PaddingValues(horizontal = 8.dp), // Padding for the content within LazyRow
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
             ) {
-                BuildingGroup.entries.forEach { group ->
+                items(items = BuildingGroup.entries, key = { it.name }) { group ->
                     Button(
                         onClick = { selectedGroup = group },
                         colors = ButtonDefaults.buttonColors(
@@ -166,7 +167,7 @@ fun BuildingListItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onBuildingSelected(buildingData.id) }
-            .padding(vertical = 12.dp) // Removed horizontal padding from here, handled by LazyColumn's contentPadding
+            .padding(vertical = 12.dp)
     )
 }
 
@@ -177,8 +178,7 @@ fun BuildingsScreenWithGroupSelectionPreview() {
     val scrollState = rememberScrollState()
 
     // Create a more diverse sample for previewing group filtering
-    // In a real scenario, AllBuildingDataSample would be populated from your data files.
-    // For this preview, we create a temporary AllBuildingDataSample for demonstration.
+    // This is temporary preview data. The actual screen uses AllBuildingDataSample.
     val previewAllBuildingDataSample = remember {
         listOf(
             BuildingData("assembler_prev", "Assembler", "Production", "Desc A", "15MW", emptyList(), "Yes", "2"),
@@ -187,55 +187,48 @@ fun BuildingsScreenWithGroupSelectionPreview() {
             BuildingData("drone_port_prev", "Drone Port", "Logistics", "Desc D", "100MW", emptyList(), "No", "2"),
             BuildingData("extractor_prev", "Extractor", "Production", "Desc E", "10MW", emptyList(), "Yes", "0P"),
             BuildingData("foundry_prev", "Foundry", "Production", "Desc F", "16MW", emptyList(), "Yes", "2"),
-            BuildingData("placeholder_g", "Generator GGG", "Power", "Desc G", "N/A", emptyList(), null, null) // Example for a G building
+            BuildingData("generator_g_prev", "Generator GGG", "Power", "Desc G", "N/A", emptyList(), null, null),
+            BuildingData("hub_h_prev", "HUB HHH", "Logistics", "Desc H", "N/A", emptyList(), null, null),
+            BuildingData("industrial_i_prev", "Industrial I-Beam", "Production", "Desc I", "N/A", emptyList(), null, null),
+            BuildingData("jump_pad_j_prev", "Jump Pad JJJ", "Logistics", "Desc J", "N/A", emptyList(), null, null),
+            // Add more sample data for other groups if desired for more thorough preview testing
         )
     }
 
-    // IMPORTANT: For the preview to work with the updated BuildingsScreen,
-    // we need to simulate the AllBuildingDataSample it expects.
-    // The actual AllBuildingDataSample is defined in your data package.
-    // This is a common pattern for previews: provide specific preview data.
-
-    MyCleanComposeAppTheme { // Use your app's theme
+    MyCleanComposeAppTheme {
         if (selectedBuildingIdForPreview == null) {
-            // Temporarily use previewAllBuildingDataSample for the preview context
-            // In the real app, BuildingsScreen uses the global AllBuildingDataSample
-            // To make this preview truly isolated, you'd pass previewAllBuildingDataSample
-            // to a modified BuildingsScreen that accepts the full list as a parameter,
-            // or ensure this preview scope correctly shadows the global AllBuildingDataSample.
-            // For simplicity here, we rely on the remember block for previewAllBuildingDataSample.
+            // For this preview to accurately reflect filtering, the actual AllBuildingDataSample
+            // (from your data package) should contain items for the selected default group (A-C).
+            // Alternatively, you can modify BuildingsScreen to accept a list for preview purposes,
+            // or ensure this preview's 'previewAllBuildingDataSample' is somehow used by
+            // the BuildingsScreen instance below if AllBuildingDataSample were mutable and scoped here.
+            // Since AllBuildingDataSample is a global val, the BuildingsScreen below will use the
+            // actual data from your data files. Ensure that data is populated for a good preview.
 
-            // Simulate the global AllBuildingDataSample for the scope of this preview
-            val tempAllBuildingDataSample = AllBuildingDataSample.toMutableList()
-            tempAllBuildingDataSample.clear()
-            tempAllBuildingDataSample.addAll(previewAllBuildingDataSample)
-
-
-            // This is a bit of a hack for preview. Ideally, AllBuildingDataSample would be
-            // injectable or the preview would use a version of BuildingsScreen that takes the list.
-            // For now, let's assume the preview can "see" this local `previewAllBuildingDataSample`
-            // through a temporary override if `AllBuildingDataSample` was a var.
-            // Since it's a val, we can't directly override it.
-            // The BuildingsScreen will use the global AllBuildingDataSample.
-            // So, for this preview to be accurate with filtering, ensure your
-            // global AllBuildingDataSample in the data package has some sample data,
-            // or modify the preview to pass data directly.
-
-            // Let's adjust the preview to work with how BuildingsScreen is now structured:
-            // It gets data from the global AllBuildingDataSample.
-            // So, to test filtering, your global AllBuildingDataSample needs A-F items.
-
-            BuildingsScreen( // This will use the actual AllBuildingDataSample from your data package
+            // The best way to make this Preview truly isolated and representative
+            // would be to modify BuildingsScreen to accept an optional list parameter for previewing:
+            // fun BuildingsScreen(..., buildingsToDisplay: List<BuildingData> = AllBuildingDataSample, ...)
+            // And then pass `previewAllBuildingDataSample` to it here.
+            // However, sticking to your current structure where BuildingsScreen directly uses
+            // the global AllBuildingDataSample:
+            BuildingsScreen(
                 onBuildingSelected = { id ->
                     selectedBuildingIdForPreview = id
-                    // Use the getBuildingById that also uses the global AllBuildingDataSample
-                    println("Preview: Building selected with ID: $id. Full data: ${getBuildingById(id)}")
+                    // For the preview, let's try to get data from the preview sample first if it was the source,
+                    // otherwise fall back to the global getBuildingById for consistency.
+                    // This preview's detail view logic might need adjustment if using global AllBuildingDataSample.
+                    val selectedBuilding = previewAllBuildingDataSample.find { it.id == id } ?: getBuildingById(id)
+                    println("Preview: Building selected with ID: $id. Full data: $selectedBuilding")
                 },
                 onNavigateBack = { println("Preview: Navigate back pressed (from list screen)") }
             )
         } else {
             // Detail view part of the preview
-            val building = getBuildingById(selectedBuildingIdForPreview!!) // Uses global AllBuildingDataSample
+            // For the detail view in preview, it's better to fetch from the list that was used to display.
+            // If BuildingsScreen used `previewAllBuildingDataSample`, then fetch from it.
+            // If it used global `AllBuildingDataSample` (as it currently does), use `getBuildingById`.
+            val building = previewAllBuildingDataSample.find { it.id == selectedBuildingIdForPreview!! } ?: getBuildingById(selectedBuildingIdForPreview!!)
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -246,7 +239,6 @@ fun BuildingsScreenWithGroupSelectionPreview() {
                 if (building != null) {
                     Text("Preview: Details for:", style = MaterialTheme.typography.headlineSmall)
                     Text(building.name, style = MaterialTheme.typography.titleLarge)
-                    // ... (rest of your detail view Text elements) ...
                     Text("ID: ${building.id}", style = MaterialTheme.typography.bodyMedium)
                     Text("Category: ${building.category}", style = MaterialTheme.typography.bodyMedium)
                     Spacer(modifier = Modifier.height(4.dp))
@@ -263,10 +255,10 @@ fun BuildingsScreenWithGroupSelectionPreview() {
                     building.buildCost.forEach { cost ->
                         Text("- ${cost.quantity}x ${cost.itemName}", style = MaterialTheme.typography.bodyMedium)
                     }
-                    Spacer(modifier = Modifier.height(50.dp))
-                    Text("--- End of Details ---")
+                    Spacer(modifier = Modifier.height(50.dp)) // Added more space before button
+                    Text("--- End of Details ---") // Optional visual separator
                 } else {
-                    Text("Building with ID '$selectedBuildingIdForPreview' not found in global AllBuildingDataSample.")
+                    Text("Building with ID '$selectedBuildingIdForPreview' not found.")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { selectedBuildingIdForPreview = null }) {
@@ -276,3 +268,4 @@ fun BuildingsScreenWithGroupSelectionPreview() {
         }
     }
 }
+
