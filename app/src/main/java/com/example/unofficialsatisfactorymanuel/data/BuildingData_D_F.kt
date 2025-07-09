@@ -1,6 +1,6 @@
-package com.example.unofficialsatisfactorymanuel.data // Correct package declaration
+package com.example.unofficialsatisfactorymanuel.data
 
-// Assuming your BuildingData class is defined elsewhere and imported, or defined in this package.
+// --- Import data classes from the 'model' package ---
 
 val buildingData_D_F: List<BuildingData> = listOf(
     BuildingData(
@@ -9,52 +9,50 @@ val buildingData_D_F: List<BuildingData> = listOf(
         category = "TODO",
         description = "TODO: Add description.",
         powerConsumption = "TODO MW",
-        buildCost = emptyList(),
-        overclockable = "Yes/No/N/A",
-        conveyorInputs = "TODO"
+        // Assuming ItemCost is used for buildCost. If buildCost is empty, ItemCost import is not strictly
+        // needed for *this specific list item* but good to have if other items might use it or for consistency.
+        buildCost = emptyList(), // If you add items, they'd be ItemCost(...)
+        overclockable = "Yes/No/N/A", // Consistent with your model
+        conveyorInputs = "TODO",
+        // conveyorOutputs = null, // from your model definition
+        // productionRate = null,  // from your model definition
+        // unlockMethod = null,    // from your model definition
+        // unlockCost = null,      // from your model definition
+        // unlockDetails = null    // from your model definition
     ),
     BuildingData(
         id = "drone_port",
         name = "Drone Port",
         category = "Logistics",
         description = "Facilitates automated transport of items using Drones. Requires Batteries.",
-        powerConsumption = "100 MW", // Example, verify
+        powerConsumption = "100 MW",
         buildCost = listOf(
-            // Example: ResourceCost("Modular Frame", 10), ResourceCost("Computer", 2)
-        ),
+            // ItemCost("Modular Frame", 10), // Example: This is where ItemCost would be used
+            // ItemCost("Computer", 2)
+        ), // Keep as emptyList() if no cost defined yet.
         overclockable = "No",
-        conveyorInputs = "1 Item Input, 1 Item Output, 1 Battery Input" // Example, verify
+        conveyorInputs = "1 Item Input, 1 Item Output, 1 Battery Input"
     ),
     BuildingData(
-        id = "empty_platform", // ID remains the same
-        name = "Empty Platform", // Name now correctly has "/zh" removed
+        id = "empty_platform",
+        name = "Empty Platform",
         category = "Foundations",
-        description = "A basic platform for building structures.", // You might need a different description if the "/zh" version was distinct
+        description = "A basic platform for building structures.",
         powerConsumption = "N/A",
         buildCost = emptyList(),
         overclockable = "N/A",
         conveyorInputs = "N/A"
     ),
-    // The "Empty Platform/zh" entry is now effectively a duplicate of "Empty Platform" if we just remove "/zh".
-    // You need to decide if these were truly distinct items or just language variants.
-    // If they were meant to be distinct and you still want two entries, they'll need different IDs and potentially names.
-    // For now, I'll assume you want only one "Empty Platform" entry after removing "/zh".
-    // IF "Empty Platform/zh" was meant to be a *different item* whose name just happened to contain "/zh",
-    // you'll need to provide a new unique name and ID for it.
-
     BuildingData(
-        id = "equipment_workshop", // ID remains the same
-        name = "Equipment Workshop", // Name now correctly has "/zh" removed
+        id = "equipment_workshop",
+        name = "Equipment Workshop",
         category = "Production",
-        description = "Used to craft personal equipment and tools.", // Adjust if "/zh" version was distinct
-        powerConsumption = "20 MW", // Example, verify
+        description = "Used to craft personal equipment and tools.",
+        powerConsumption = "20 MW",
         buildCost = emptyList(),
         overclockable = "No",
         conveyorInputs = "N/A"
     ),
-    // Similar to "Empty Platform", "Equipment Workshop/zh" becomes "Equipment Workshop".
-    // If it was a distinct item, it needs a unique ID and possibly name. I'll assume one entry for now.
-
     BuildingData(
         id = "fluid_buffer",
         name = "Fluid Buffer",
@@ -70,7 +68,7 @@ val buildingData_D_F: List<BuildingData> = listOf(
         name = "Foundry",
         category = "Production",
         description = "Smelts two solid ingredients into one, typically producing alloys.",
-        powerConsumption = "16 MW", // Example, verify
+        powerConsumption = "16 MW",
         buildCost = emptyList(),
         overclockable = "Yes",
         conveyorInputs = "2 Inputs, 1 Output"
@@ -80,17 +78,17 @@ val buildingData_D_F: List<BuildingData> = listOf(
         name = "Freight Platform",
         category = "Logistics",
         description = "Part of the Train system for loading/unloading items from Freight Cars.",
-        powerConsumption = "50 MW", // Example, verify
+        powerConsumption = "50 MW",
         buildCost = emptyList(),
         overclockable = "No",
         conveyorInputs = "1 Input or 1 Output (depending on mode)"
     ),
     BuildingData(
-        id = "fuel_generator", // Changed ID to match common name "Fuel Generator"
-        name = "Fuel Generator", // Changed name from "Fuel-Powered Generator"
+        id = "fuel_generator",
+        name = "Fuel Generator",
         category = "Power",
         description = "Generates power by burning various types of fuel.",
-        powerConsumption = "-150 MW",
+        powerConsumption = "-150 MW", // Negative indicates generation
         buildCost = emptyList(),
         overclockable = "Yes",
         conveyorInputs = "1 Fuel Input (Pipe)"
